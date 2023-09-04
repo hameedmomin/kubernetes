@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+#we have to types in this either we can go with httpGet or tcpGet in either way we get health check
+metadata:
+  name: sample
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      readinessProbe:    #this is while creation of the container
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 3
+        periodSeconds: 3
+      livenessProbe:    #this is at the time of running a container
+        httpGet:
+          port: 80
+          path: /demo
+        initialDelaySeconds: 3
+        periodSeconds: 3
